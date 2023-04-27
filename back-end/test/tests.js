@@ -20,7 +20,10 @@ const testing = async () => {
     console.log(messageInfo);
     kevinMessages =  await threadContract.findMessages("Owner");
     allMessages = await threadContract.displayMessages();
-    console.log(kevinMessages)
+    console.log(allMessages)
+    await threadContract.likeMessage(1);
+    allMessages = await threadContract.displayMessages();
+    console.log(allMessages)
 };
 
 // Try testing block
