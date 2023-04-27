@@ -36,7 +36,7 @@ function SearchPage() {
           const provider = new ethers.providers.Web3Provider(ethereum);
           const signer = provider.getSigner();
           const Contract = new ethers.Contract(contractAddress, contractABI, signer);
-          message = await Contract.findMessage(inputAddress);
+          message = await Contract.findMessages(inputAddress).wait();
           console.log(message);
         } else {
           console.log("error");

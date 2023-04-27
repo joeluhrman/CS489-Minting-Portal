@@ -81,7 +81,7 @@ function Mint() {
           const provider = new ethers.providers.Web3Provider(ethereum);
           const signer = provider.getSigner();
           const Contract = new ethers.Contract(contractAddress, contractABI, signer);
-          Contract.addMessage(inputMessage); 
+          await Contract.addMessage(inputMessage).wait(); 
           console.log(inputMessage);
       } 
       else {
