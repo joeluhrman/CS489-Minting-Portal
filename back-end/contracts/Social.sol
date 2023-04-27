@@ -11,6 +11,8 @@ contract Social {
         string text;
         uint256 timestamp;
         bool exists;
+        address[] likes;
+        uint256 likeCount;
     }
 
     struct Person{
@@ -26,9 +28,11 @@ contract Social {
 
     mapping (string => Person) public usernames;
 
+
     constructor(){
         owner = msg.sender;
-        Message memory newMessage = Message(msg.sender, "New contract deployed", block.timestamp, true);
+        address[] memory likeList;
+        Message memory newMessage = Message(msg.sender, "New contract deployed", block.timestamp, true, likeList, 0);
         thread[msg.sender].push(newMessage);
         Person memory firstUser = (Person(msg.sender, "Owner"));
         users[owner] = firstUser;
@@ -37,9 +41,15 @@ contract Social {
     }
     
     function addMessage(string memory _message) public {
-        Message memory newMessage = Message(msg.sender, _message, block.timestamp, true);
+        address[] memory likeList;
+        Message memory newMessage = Message(msg.sender, _message, block.timestamp, true, likeList, 0);
         thread[msg.sender].push(newMessage);
         allMessages.push(newMessage);
+    }
+
+    function likeMessage(uint256 index) public  {
+        allMessages[index].likes.push(msg.sender);
+        allMessages[index].likeCount ++;
     }
 
     function addUser(string memory _username) public {
