@@ -23,11 +23,17 @@ function Home() {
         let messageU = await Contract.findMessages("Kevin");
         let posts = "";
         for(let x = 0; x < messageA.length; x++) {
-          posts += "user: " + messageA[x].id + "\nmessage: " + messageA[x].text + "\n";
+          const date = new Date(messageA[x].timestamp * 1000);
+          const formattedDate = date.toISOString();
+          posts += "<div style={{ color: 'black' }}>user: " + messageA[x].id + "<br/>message: '" + messageA[x].text + "' at " + formattedDate + "</div>";
+          posts += "<br/><br/>";
         }
 
         for(let y = 0; y < messageU.length; y++) {
-          posts += messageU[y].text + "\n";
+          const date = new Date(messageU[y].timestamp * 1000);
+          const formattedDate = date.toISOString();
+          posts += "<div style={{ color: 'black' }}>user: " + messageU[y].id + "<br/>message: '" + messageU[y].text + "' at " + formattedDate + "</div>";
+          posts += "<br/><br/>";
         }
         setNewPosts(posts);
 
@@ -50,7 +56,7 @@ function Home() {
       <header className="App-header gradient_bg">
         <p>Home</p>
         <button onClick={retrieveRecents}>Refresh</button>
-        <div className="new-posts">{newPosts}</div>
+        <div className="new-posts" dangerouslySetInnerHTML={{ __html: newPosts }}></div>
       </header>
     </div>
   );
