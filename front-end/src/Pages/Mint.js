@@ -11,6 +11,7 @@ function Mint() {
   const [inputMessage, setInputMessage] = useState("");
   const [currentAccount, setCurrentAccount] = useState("");
   const contractABI = abi.abi;
+  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
   const change = event => {
     setInputMessage(event.target.value);
@@ -79,9 +80,11 @@ function Mint() {
       if(ethereum) {
           const provider = new ethers.providers.Web3Provider(ethereum);
           const signer = provider.getSigner();
-          //const Contract = new ethers.Contract(contractAddress, contractABI, signer);
-          //Contract.addMessage(inputMessage); 
-      } else {
+          const Contract = new ethers.Contract(contractAddress, contractABI, signer);
+          Contract.addMessage(inputMessage); 
+          console.log(inputMessage);
+      } 
+      else {
         console.log("error");
       }
     } catch (error) {
@@ -95,7 +98,6 @@ function Mint() {
         <header className="App-header gradient_bg">
         <p>Minting Page</p>
         
-        <form>
         {!currentAccount && (<button onClick={connectWallet}>Connect Wallet!</button>)}
         <h1></h1>
         <label>
@@ -103,7 +105,6 @@ function Mint() {
             <input type="text" name="message" onChange={change}/>
         </label>
         <button onClick={addMessage}>Submit</button>
-        </form>
         </header>
       </div>
     );

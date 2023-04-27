@@ -5,11 +5,11 @@ import abi from "../utils/Social.json";
 import {ethers} from "ethers";
 let web3 = require('web3');
 
-const posts = [];
+let posts = [];
 
 function Home() {
   const contractABI = abi.abi;
-  //const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
   const retrieveRecents = async () => {
     try {
@@ -18,10 +18,17 @@ function Home() {
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
-        //const newContract = new ethers.Contract(contractAddress, contractABI, signer);
-        alert("testing in home");
-        //posts = newContract.displayMessages();
-        //console.log(posts);
+        const newContract = new ethers.Contract(contractAddress, contractABI, signer);
+        //alert("testing in home");
+        posts = await newContract.displayMessages();
+
+        if(posts.length == 0){
+          alert("No messages minted");
+        }
+        else{
+          alert("in else");
+        }
+        console.log(posts);
         //figure out how to recieve the post info and then display it below
       } 
       else {

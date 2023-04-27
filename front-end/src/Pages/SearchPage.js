@@ -18,6 +18,7 @@ function SearchPage() {
 
     const [inputAddress, setInputAddress] = useState("");
     const contractABI = abi.abi;
+    const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
     const change = event => {
       setInputAddress(event.target.value);
@@ -25,6 +26,7 @@ function SearchPage() {
     }
 
     const findMessage = async () => {
+      console.log("in func");
       try {
         const { ethereum } = window;
     
@@ -33,8 +35,9 @@ function SearchPage() {
           let message;
           const provider = new ethers.providers.Web3Provider(ethereum);
           const signer = provider.getSigner();
-          //const Contract = new ethers.Contract(contractAddress, contractABI, signer);
-          //message = await Contract.findMessage(inputAddress);
+          const Contract = new ethers.Contract(contractAddress, contractABI, signer);
+          message = await Contract.findMessage(inputAddress);
+          console.log(message);
         } else {
           console.log("error");
         }
@@ -50,13 +53,11 @@ function SearchPage() {
         <header className="App-header gradient_bg">
         <p>Search Page</p>
         <p>Enter a wallet address and search for that user's posts!</p>
-        <form>
         <label>
             Address:
             <input type="text" name="address" onChange={change}/>
         </label>
         <button onClick={findMessage}>Search</button>
-        </form>
         </header>
       </div>
     );
