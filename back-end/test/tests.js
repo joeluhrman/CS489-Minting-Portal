@@ -18,9 +18,9 @@ const testing = async () => {
       return { name: name, text: msg.text, timestamp: formattedDate };
     }));
     console.log(messageInfo);
-    kevinMessage =  await threadContract.findMessages("Kevin");
+    kevinMessages =  await threadContract.findMessages("Owner");
     allMessages = await threadContract.displayMessages();
-    console.log(allMessages)
+    console.log(kevinMessages)
 };
 
 // Try testing block
