@@ -105,7 +105,10 @@ contract Social {
 
     // Function to display all messages for user's feed
     function displayMessages() public view returns (Message[] memory){
-        return allMessages;
+        if (allMessages[0].exists)
+            return allMessages;
+        else 
+            return new Message[](0);
     }
 
 }
