@@ -1,7 +1,7 @@
 // Work of Kevin Murray
 pragma solidity ^0.8.0;
 
-import "hardhat/console.sol";
+// import "hardhat/console.sol";
 
 contract Social {
     address public owner;
@@ -50,10 +50,10 @@ contract Social {
 
     function findMessages(string memory _username) public view returns (Message[] memory){
         address user =  usernames[_username].id;
-        if (thread[user][0].exists)
+        if (thread[user].length > 0)
             return thread[user];
         else
-            return thread[user];
+            return new Message[](0);
     }
 
     function findUsername(address _user) public view returns (string memory){
