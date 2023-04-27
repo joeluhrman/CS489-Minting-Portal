@@ -59,8 +59,22 @@ contract Social {
 
     // Function to like a message if user has not already liked it
     function likeMessage(uint256 index) public  {
-        allMessages[index].likes.push(msg.sender);
-        allMessages[index].likeCount ++;
+        // Require valid index
+        require(index < allMessages.length, "Invalid message index");
+        Message storage message = allMessages[index];
+        bool alreadyLiked = false;
+        // Iterate through likers to make sure instance is unique
+        for (uint256 i = 0; i < message.likes.length; i++) {
+            if (message.likes[i] == msg.sender) {
+                alreadyLiked = true;
+                break;
+            }
+        }
+        // If unique like then accept it
+        if (!alreadyLiked){
+            allMessages[index].likes.push(msg.sender);
+            allMessages[index].likeCount ++;
+        }
     }
 
     // Function to add a user to the application
@@ -95,3 +109,4 @@ contract Social {
     }
 
 }
+
