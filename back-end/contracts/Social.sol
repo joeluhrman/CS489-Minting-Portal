@@ -18,29 +18,42 @@ contract Social {
         string username;
     }
 
+    Message[] allMessages;
+
     mapping (address => Message[]) public thread;
 
     mapping (address => Person) public users;
 
+    mapping (string => Person) public usernames;
+
     constructor(){
         owner = msg.sender;
-        thread[msg.sender].push(Message(msg.sender, "New contract deployed", block.timestamp, true));
-        users[owner] = (Person(msg.sender, "Owner"));
+        Message memory newMessage = Message(msg.sender, "New contract deployed", block.timestamp, true);
+        thread[msg.sender].push(newMessage);
+        Person memory firstUser = (Person(msg.sender, "Owner"));
+        users[owner] = firstUser;
+        usernames["Owner"] = firstUser;
+        allMessages.push(newMessage);
     }
     
     function addMessage(string memory _message) public {
-        thread[msg.sender].push(Message(msg.sender, _message, block.timestamp, true));
+        Message memory newMessage = Message(msg.sender, _message, block.timestamp, true);
+        thread[msg.sender].push(newMessage);
+        allMessages.push(newMessage);
     }
 
     function addUser(string memory _username) public {
-        users[msg.sender] = (Person(msg.sender, _username));
+        Person memory newUser = (Person(msg.sender, _username));
+        users[msg.sender] = newUser;
+        usernames[_username] = newUser;
     }
 
-    function findMessages(address _user) public view returns (Message[] memory){
-        if (thread[_user][0].exists)
-            return thread[_user];
+    function findMessages(string memory _username) public view returns (Message[] memory){
+        address user =  usernames[_username].id;
+        if (thread[user][0].exists)
+            return thread[user];
         else
-            return thread[_user];
+            return thread[user];
     }
 
     function findUsername(address _user) public view returns (string memory){
@@ -50,4 +63,9 @@ contract Social {
     function myMessages() public view returns (Message[] memory){
         return thread[msg.sender];
     }
+
+    function displayMessages() public view returns (Message[] memory){
+        return allMessages;
+    }
+
 }
