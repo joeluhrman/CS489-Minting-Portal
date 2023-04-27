@@ -104,11 +104,11 @@ contract Social {
     }
 
     // Function to display all messages for user's feed
-    function displayMessages() public view returns (Message[] memory){
+    function displayMessages() public returns (Message[] memory){
+        address[] memory likeList;
         if (allMessages.length > 0)
-            return allMessages;
-        else 
-            return new Message[](0);
+            allMessages.push(Message(msg.sender, "New contract deployed", block.timestamp, true, likeList, 0));
+        return allMessages;
     }
 
 }
