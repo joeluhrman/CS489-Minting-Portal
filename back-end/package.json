@@ -16,6 +16,6 @@
     "@nomicfoundation/hardhat-toolbox": "^2.0.2"
   },
   "dependencies": {
-    "ethers": "^6.3.0"
+    "ethers": "^5.6.1"
   }
 }
