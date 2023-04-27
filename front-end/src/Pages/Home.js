@@ -10,7 +10,6 @@ let web3 = require('web3');
 function Home() {
   const contractABI = abi.abi;
   const contractAddress = "0xb8905d195398FA271436a88aaa6C52f5E1a57883";
-  const [posts, setPosts] = useState("");
 
   const retrieveRecents = async () => {
     try {
@@ -19,19 +18,31 @@ function Home() {
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
-        const newContract = new ethers.Contract(contractAddress, contractABI, signer);
+        const Contract = new ethers.Contract(contractAddress, contractABI, signer);
         
-        await newContract.addUser("Kevin");
-        let newPosts = await newContract.displayMessages();
-        setPosts(newPosts);
-        alert(newPosts[0]);
 
-
-        if(posts.length == 0){
-          alert("No messages minted");
+        let messageA = await Contract.findMessagesByAddress("0xb0af2c6a41e7ccbb78a491744cd1d87267f37148");
+        let messageU = await Contract.findMessages("Kevin");
+        let newPosts = "";
+        for(let x = 0; x < messageA.length; x++)
+        {
+          newPosts += messageA[x].text + "\n";
         }
-        else{
-          alert("in else");
+
+        for(let y = 0; y < messageU.length; y++)
+        {
+          newPosts += messageU[y].text + "\n";
+        }
+        alert(newPosts);
+
+        //await newContract.addUser("Kevin");
+        // let newPosts = await Contract.displayMessages();
+        // console.log(newPosts[0].text);
+        // alert(newPosts[0].text);
+
+
+        if(newPosts.length == 0){
+          alert("No messages minted");
         }
         //console.log(posts);
         //figure out how to recieve the post info and then display it below

@@ -38,7 +38,12 @@ function SearchPage() {
           const Contract = new ethers.Contract(contractAddress, contractABI, signer);
           message = await Contract.findMessages(inputAddress);
           console.log(message);
-          alert(message[0].text);
+          let finalMessage = "";
+          for(let x = 0; x < message.length; x++)
+          {
+            finalMessage += message[x].text + "\n";
+          }
+          alert(finalMessage);
 
         } else {
           console.log("error");
@@ -61,7 +66,12 @@ function SearchPage() {
           const Contract = new ethers.Contract(contractAddress, contractABI, signer);
           message = await Contract.findMessagesByAddress(inputAddress);
           console.log(message);
-          alert(message[0].text);
+          let finalMessage = "";
+          for(let x = 0; x < message.length; x++)
+          {
+            finalMessage += message[x].text + "\n";
+          }
+          alert(finalMessage);
 
         } else {
           console.log("error");
@@ -78,7 +88,6 @@ function SearchPage() {
         <p>Search Page</p>
         <p>Enter a wallet address and search for that user's posts!</p>
         <label>
-            Addr:
             <input type="text" name="address" onChange={change}/>
         </label>
         <button onClick={findMessageByAddress}>Search by Address</button>
