@@ -55,7 +55,6 @@ function SearchPage() {
             Address:
             <input type="text" name="address" onChange={change}/>
         </label>
-        <h1></h1>
         <button onClick={findMessage}>Search</button>
         </form>
         </header>
