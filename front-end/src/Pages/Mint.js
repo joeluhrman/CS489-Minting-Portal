@@ -11,7 +11,7 @@ function Mint() {
   const [inputMessage, setInputMessage] = useState("");
   const [currentAccount, setCurrentAccount] = useState("");
   const contractABI = abi.abi;
-  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+  const contractAddress = "0xb8905d195398FA271436a88aaa6C52f5E1a57883";
 
   const change = event => {
     setInputMessage(event.target.value);
@@ -81,7 +81,7 @@ function Mint() {
           const provider = new ethers.providers.Web3Provider(ethereum);
           const signer = provider.getSigner();
           const Contract = new ethers.Contract(contractAddress, contractABI, signer);
-          await Contract.addMessage(inputMessage).wait(); 
+          await Contract.addMessage(inputMessage); 
           console.log(inputMessage);
       } 
       else {

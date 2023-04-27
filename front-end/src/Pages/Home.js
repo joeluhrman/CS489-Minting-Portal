@@ -9,7 +9,7 @@ let web3 = require('web3');
 
 function Home() {
   const contractABI = abi.abi;
-  const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+  const contractAddress = "0xb8905d195398FA271436a88aaa6C52f5E1a57883";
   const [posts, setPosts] = useState("");
 
   const retrieveRecents = async () => {
@@ -20,8 +20,12 @@ function Home() {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         const newContract = new ethers.Contract(contractAddress, contractABI, signer);
-        //let newPosts = await newContract.displayMessages();
-        //setPosts(newPosts);
+        
+        await newContract.addUser("Kevin");
+        let newPosts = await newContract.displayMessages();
+        setPosts(newPosts);
+        alert(newPosts[0]);
+
 
         if(posts.length == 0){
           alert("No messages minted");
@@ -59,7 +63,7 @@ function Home() {
         <p>Home</p>
         <button onClick={retrieveRecents}>Refresh</button>
 
-        <div>{posts}</div>
+        {/* <div>{posts}</div> */}
         
         {/* {posts.map(App => { return (
           <a>
