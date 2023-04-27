@@ -17,24 +17,6 @@ function Mint() {
     console.log(event.target.value);
   }
 
-  const addMessage = async () => {
-    try {
-      const { ethereum } = window;
-  
-      // cant actually call the functions until we deploy the contract
-      if(ethereum) {
-          const provider = new ethers.providers.Web3Provider(ethereum);
-          const signer = provider.getSigner();
-          //const Contract = new ethers.Contract(contractAddress, contractABI, signer);
-          //Contract.addMessage(inputMessage); 
-      } else {
-        console.log("error");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   // Allows to connect an auth'd wallet
   const connectWallet = async () => {
     try {
@@ -88,10 +70,29 @@ function Mint() {
     checkIfWalletIsConnected();
   }, [])
 
+
+  const addMessage = async () => {
+    try {
+      const { ethereum } = window;
+  
+      // cant actually call the functions until we deploy the contract
+      if(ethereum) {
+          const provider = new ethers.providers.Web3Provider(ethereum);
+          const signer = provider.getSigner();
+          //const Contract = new ethers.Contract(contractAddress, contractABI, signer);
+          //Contract.addMessage(inputMessage); 
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
     return (
       <div className="App">
         <Navbar />
-        <header className="App-header">
+        <header className="App-header gradient_bg">
         <p>Minting Page</p>
         
         <form>

@@ -6,7 +6,7 @@ function Home() {
     return (
       <div className="App">
         <Navbar />
-        <header className="App-header">
+        <header className="App-header gradient_bg">
         <p>Home</p>
           <a>
             (current feed)

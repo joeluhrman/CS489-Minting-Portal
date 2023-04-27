@@ -16,7 +16,6 @@ function SearchPage() {
         border-radius: 10px;
     `;
 
-
     const [inputAddress, setInputAddress] = useState("");
     const contractABI = abi.abi;
 
@@ -48,7 +47,7 @@ function SearchPage() {
     return (
       <div className="App">
         <Navbar />
-        <header className="App-header">
+        <header className="App-header gradient_bg">
         <p>Search Page</p>
         <p>Enter a wallet address and search for that user's posts!</p>
         <form>

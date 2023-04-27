@@ -4,7 +4,7 @@ const Navbar = () => {
     const [currentPage, setCurrentPage] = useState('');
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <div className="navbar navbar-expand-lg navbar-light gradient_bg">
       <a className="navbar-brand" href="#">
         Desocialized: NFT Minting Portal
       </a>
@@ -39,7 +39,7 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-    </nav>
+    </div>
   );
 };
 
