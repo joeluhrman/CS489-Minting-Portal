@@ -92,6 +92,14 @@ contract Social {
         else
             return new Message[](0);
     }
+    
+    // Function to find all messages from a user by address
+    function findMessagesByAddress(address user) public view returns (Message[] memory){
+        if (thread[user].length > 0)
+            return thread[user];
+        else
+            return new Message[](0);
+    }
 
     // Function to find a username given the user address
     function findUsername(address _user) public view returns (string memory){
